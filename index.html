@@ -1,0 +1,211 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Pink Tablet</title>
+    <style>
+        /* Menggunakan font kustom yang diunggah untuk efek pahatan batu */
+        @font-face {
+            font-family: 'Cave Stone';
+            /* NOTE: Menggunakan raw GitHub URLs untuk file font eksternal. File ini akan perlu diunduh
+               secara eksternal oleh browser, pastikan koneksi internet tersedia. */
+            src: url('https://raw.githubusercontent.com/istanadua/assets/refs/heads/main/fonts/Cave-Stone.woff') format('woff'),
+                 url('https://raw.githubusercontent.com/istanadua/assets/refs/heads/main/fonts/Cave-Stone.otf') format('opentype'),
+                 url('https://raw.githubusercontent.com/istanadua/assets/refs/heads/main/fonts/Cave-Stone.ttf') format('truetype');
+            font-weight: normal;
+            font-style: normal;
+        }
+
+        :root {
+            --color-pink: #e91e63;
+            --color-light-pink: #f06292;
+            --color-text-dark: #1a1a1a;
+            --color-text-light: #ffffff;
+            /* Font cadangan jika Cave Stone gagal dimuat */
+            --font-fallback: sans-serif; 
+        }
+
+        body {
+            /* Menggunakan font sistem yang bersih sebagai font umum */
+            font-family: var(--font-fallback);
+            margin: 0;
+            padding: 0;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+            
+            /* LATAR BELAKANG HALAMAN PUTIH */
+            background-color: #ffffff; 
+            
+            background-size: cover;
+            background-position: center;
+            background-attachment: fixed;
+            color: var(--color-text-dark);
+        }
+
+        .notepad-container {
+            /* MENGGUNAKAN GAMBAR BATU PINK SEBAGAI LATAR BELAKANG UTAMA CONTAINER */
+            background-image: url('https://raw.githubusercontent.com/istanadua/assets/refs/heads/main/pinktablet.jpg'); 
+            background-size: cover;
+            background-position: center;
+            
+            padding: 30px;
+            border-radius: 15px;
+            
+            /* HAPUS BAYANGAN LUAR */
+            box-shadow: none; 
+            
+            border: none; 
+            
+            width: 90%;
+            max-width: 600px;
+            text-align: center;
+        }
+
+        h1 {
+            /* FONT KUSTOM: Cave Stone */
+            font-family: 'Cave Stone', var(--font-fallback); 
+            text-transform: uppercase; 
+
+            color: var(--color-text-light); /* PUTIH */
+            /* Bayangan teks yang kuat untuk kesan pahatan dalam */
+            text-shadow: 1px 1px 5px rgba(0, 0, 0, 1); 
+            margin-bottom: 25px;
+            font-size: 3.2em; 
+            font-weight: normal;
+        }
+
+        textarea {
+            /* PERUBAHAN: Terapkan font kustom ke textarea */
+            font-family: 'Cave Stone', var(--font-fallback); 
+
+            width: calc(100% - 30px);
+            height: 350px;
+            padding: 15px;
+            
+            /* BACKGROUND TRANSLARAN: Agar gambar container terlihat */
+            background-image: none; 
+            background-color: transparent; 
+            
+            /* HAPUS GARIS TEPI */
+            border: none; 
+            border-radius: 10px;
+            font-size: 1.4em; /* Ukuran font diperbesar agar lebih mudah dibaca */
+            /* Menonaktifkan resize untuk tampilan yang lebih konsisten */
+            resize: none; 
+            margin-bottom: 20px;
+            
+            /* HAPUS BAYANGAN DALAM */
+            box-shadow: none; 
+            
+            transition: outline-color 0.3s;
+            
+            /* Warna teks PUTIH, Bayangan TEKS KUAT agar terbaca di atas gambar */
+            color: var(--color-text-light); 
+            text-shadow: 1px 1px 3px rgba(0, 0, 0, 0.7); 
+            
+            line-height: 1.5; /* Spasi baris sedikit dilebarkan untuk font bergaya pahatan */
+            letter-spacing: 0.05em; /* Spasi huruf sedikit dilebarkan */
+        }
+
+        /* Styling untuk Placeholder */
+        textarea::placeholder {
+            color: var(--color-text-light); /* Mengubah warna placeholder menjadi putih */
+            opacity: 0.7; /* Menjadikannya sedikit transparan */
+        }
+
+        textarea:focus {
+            outline: none;
+            /* Outline putih transparan saat fokus */
+            outline: 2px solid rgba(255, 255, 255, 0.5); 
+        }
+
+        .button-group {
+            /* Grouping dihapus, hanya menyisakan tombol Clear Notes */
+            margin-bottom: 20px;
+        }
+
+        .clear-button {
+            /* PERUBAHAN: Terapkan font kustom ke tombol */
+            font-family: 'Cave Stone', var(--font-fallback); 
+            text-transform: uppercase;
+            
+            background-color: var(--color-light-pink);
+            color: white;
+            border: none;
+            padding: 12px 25px;
+            border-radius: 50px; 
+            cursor: pointer;
+            font-size: 1.1em;
+            font-weight: normal; /* Font kustom mengatur ketebalan */
+            transition: background-color 0.3s ease, transform 0.2s;
+            box-shadow: 0 4px 10px rgba(233, 30, 99, 0.4);
+        }
+
+        .clear-button:hover {
+            background-color: var(--color-pink);
+            transform: translateY(-2px); 
+        }
+        
+        /* Styling untuk Iframe */
+        .poll-frame {
+            width: 100%;
+            height: 300px; /* Tinggi standar untuk iframe polling */
+            border: 2px solid rgba(255, 255, 255, 0.4); /* Border tipis agar terlihat seperti bagian tablet */
+            border-radius: 10px;
+        }
+
+        /* Responsiveness untuk layar kecil */
+        @media (max-width: 640px) {
+            .notepad-container {
+                padding: 20px;
+            }
+            h1 {
+                font-size: 2.2em;
+            }
+            textarea {
+                height: 250px;
+                font-size: 1.2em;
+            }
+            .clear-button {
+                padding: 10px 20px;
+                font-size: 1em;
+                width: auto; /* Menggunakan width otomatis */
+            }
+            .poll-frame {
+                height: 250px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="notepad-container">
+        <h1>Pink Tablet</h1>
+        <div id="pollContent" class="poll-frame"></div>
+    </div>
+
+    <script>
+        function getQueryStringParameter(name) {
+            return new URLSearchParams(window.location.search).get(name);
+        }
+
+        async function loadPollContent() {
+            const src = getQueryStringParameter('src');
+            if (src) {
+                const id = src.split('/').pop();
+                try {
+                    const response = await fetch(`/donet?id=${id}`);
+                    const content = await response.text();
+                    document.getElementById('pollContent').innerHTML = content;
+                } catch (error) {
+                    console.error('Error loading poll content:', error);
+                }
+            }
+        }
+
+        loadPollContent();
+    </script>
+</body>
+</html>

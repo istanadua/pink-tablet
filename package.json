@@ -1,0 +1,9 @@
+{
+  "type": "module",
+  "devDependencies": {
+    "serve-handler": "^6.1.6"
+  },
+  "scripts": {
+    "dev": "npx nodemon server.js"
+  }
+}
